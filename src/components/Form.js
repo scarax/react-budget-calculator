@@ -1,25 +1,38 @@
-import React from "react";
+import React, { useState, useContext } from 'react';
+import { Context } from '../context/appContext';
 
-export const Form = ({
-  charge,
-  amount,
-  setCharge,
-  setAmount,
-  handleSubmit,
-  editForm,
-}) => {
-  const classes = ["btn"];
-  editForm ? classes.push("btn--edit") : classes.push("btn--accent");
+export const Form = () => {
+  const [text, setText] = useState('');
+  const [amount, setAmount] = useState('');
+  const { showAlert, addExpense } = useContext(Context);
+
+  const submitHandler = (evt) => {
+    evt.preventDefault();
+    const newExpense = {
+      id: Date.now(),
+      title: text,
+      amount: Number(amount),
+    };
+
+    if (text.trim() && amount > 0) {
+      addExpense(newExpense);
+      showAlert(text, 'success');
+      setText('');
+      setAmount('');
+    } else {
+      showAlert("Item can't be empty and amount has to be bigger than zero");
+    }
+  };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="form" onSubmit={submitHandler}>
       <div className="form-center">
         <div className="form-group">
           <input
             type="text"
             placeholder="Enter text"
-            value={charge}
-            onChange={(evt) => setCharge(evt.target.value)}
+            value={text}
+            onChange={(evt) => setText(evt.target.value)}
           />
         </div>
         <div className="form-group">
@@ -31,9 +44,7 @@ export const Form = ({
           />
         </div>
       </div>
-      <button className={classes.join(" ")}>
-        {editForm ? "Edit" : "Submit"}
-      </button>
+      <button className="btn btn--accent">Submit</button>
     </form>
   );
 };
