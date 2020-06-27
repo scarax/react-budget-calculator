@@ -3,21 +3,24 @@ import { Form } from './components/Form';
 import { ExpenseList } from './components/ExpenseList';
 import { Alert } from './components/Alert';
 import { Balance } from './components/Balance';
-import { GlobalState } from './context/GlobalState';
+import { AlertState } from './context/alert/AlertState';
+import { AppState } from './context/app/AppState';
 
 function App() {
   return (
-    <GlobalState>
-      <div className="container">
-        <Alert />
-        <section className="app">
-          <h1 className="title">Budget Calculator</h1>
-          <Form />
-          <ExpenseList />
-          <Balance />
-        </section>
-      </div>
-    </GlobalState>
+    <AppState>
+      <AlertState>
+        <div className="container">
+          <Alert />
+          <section className="app">
+            <h1 className="title">Budget Calculator</h1>
+            <Form />
+            <ExpenseList />
+            <Balance />
+          </section>
+        </div>
+      </AlertState>
+    </AppState>
   );
 }
 

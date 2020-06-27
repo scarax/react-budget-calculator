@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react';
-import { Context } from '../context/appContext';
+import { AlertContext } from '../context/alert/alertContext';
+import { AppContext } from '../context/app/appContext';
 
 export const Form = () => {
   const [text, setText] = useState('');
   const [amount, setAmount] = useState('');
-  const { showAlert, addExpense } = useContext(Context);
+  const { showAlert } = useContext(AlertContext);
+  const { addExpense } = useContext(AppContext);
 
   const submitHandler = (evt) => {
     evt.preventDefault();
@@ -16,7 +18,7 @@ export const Form = () => {
 
     if (text.trim() && amount > 0) {
       addExpense(newExpense);
-      showAlert(text, 'success');
+      showAlert('Item has been created', 'success');
       setText('');
       setAmount('');
     } else {

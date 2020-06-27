@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
-import { Context } from '../context/appContext';
+import { AlertContext } from '../context/alert/alertContext';
+import { AppContext } from '../context/app/appContext';
 
 export const ExpenseItem = ({ expense }) => {
-  const { removeItem, showAlert } = useContext(Context);
+  const { showAlert } = useContext(AlertContext);
+  const { removeExpense } = useContext(AppContext);
 
   const deleteItem = () => {
-    removeItem(expense.id);
+    removeExpense(expense.id);
     showAlert('Item has been deleted');
   };
 

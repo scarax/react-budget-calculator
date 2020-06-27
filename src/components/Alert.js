@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { Context } from '../context/appContext';
+import { AlertContext } from '../context/alert/alertContext';
 
 export const Alert = () => {
-  const { alert, hideAlert } = useContext(Context);
+  const { alert, hideAlert } = useContext(AlertContext);
 
   if (!alert.visible) {
     return null;
