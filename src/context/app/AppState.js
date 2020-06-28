@@ -8,6 +8,8 @@ const initialState = {
     { title: 'Birthday Gift', amount: 200, id: 2 },
     { title: 'Party', amount: 2000, id: 3 },
   ],
+  editing: false,
+  editItem: null,
 };
 
 export const AppState = ({ children }) => {
@@ -16,6 +18,12 @@ export const AppState = ({ children }) => {
   // Actions
   const addExpense = (expense) => {
     dispatch({ type: 'ADD_EXPENSE', payload: expense });
+  };
+  const findExpense = (id) => {
+    dispatch({ type: 'FIND_EXPENSE', payload: id });
+  };
+  const editExpense = (expense) => {
+    dispatch({ type: 'EDIT_EXPENSE', payload: expense });
   };
   const removeExpense = (id) => {
     dispatch({
@@ -30,8 +38,12 @@ export const AppState = ({ children }) => {
       value={{
         expenses: state.expenses,
         addExpense,
+        findExpense,
+        editExpense,
         removeExpense,
         clearAll,
+        editing: state.editing,
+        editItem: state.editItem,
       }}
     >
       {children}

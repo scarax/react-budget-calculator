@@ -4,7 +4,7 @@ import { AppContext } from '../context/app/appContext';
 
 export const ExpenseItem = ({ expense }) => {
   const { showAlert } = useContext(AlertContext);
-  const { removeExpense } = useContext(AppContext);
+  const { findExpense, removeExpense } = useContext(AppContext);
 
   const deleteItem = () => {
     removeExpense(expense.id);
@@ -17,8 +17,15 @@ export const ExpenseItem = ({ expense }) => {
       <span>$&nbsp;{expense.amount}</span>
       <div className="btn-group">
         <button
+          className="btn btn--edit"
+          aria-label="Edit item"
+          onClick={() => findExpense(expense.id)}
+        >
+          Edit
+        </button>
+        <button
           className="btn btn--delete"
-          aria-label="Delete"
+          aria-label="Delete item"
           onClick={deleteItem}
         >
           &times;

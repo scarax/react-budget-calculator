@@ -4,9 +4,22 @@ export default (state, action) => {
       return {
         ...state,
         expenses: [...state.expenses, action.payload],
+        editing: false,
+      };
+    case 'FIND_EXPENSE':
+      return {
+        ...state,
+        editing: true,
+        editItem: state.expenses.find((item) => item.id === action.payload),
       };
     case 'EDIT_EXPENSE':
-      return state;
+      return {
+        ...state,
+        expenses: state.expenses.map((item) =>
+          item.id === action.payload.id ? action.payload : item
+        ),
+        editing: false,
+      };
     case 'REMOVE_EXPENSE':
       return {
         ...state,
